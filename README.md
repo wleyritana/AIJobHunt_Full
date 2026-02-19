@@ -1,52 +1,31 @@
-# AI Job Hunting System (Flask) — Full Version
+# AI Job Hunting System (Lite Secure Console)
 
-This is a production-ready Flask web app that:
-- Accepts CV + Job Ad (+ optional cover letter & target role)
-- Runs a multi-agent LLM pipeline:
-  - Recruiter match (score + gaps)
-  - CV optimizer (Google X-Y-Z bullets, no invented metrics)
-  - ATS audit (parsing risks) + ATS submission CV ("ugly but deadly")
-  - Re-score after optimization (delta)
-  - Interview pack (technical, HR/values, candidate questions)
-- Stores results in DB (SQLite locally; Postgres on Railway)
-- Includes login/registration + analytics dashboard
+Public Flask web app (no database) with:
+- Shared access password gate (session cookie)
+- IP rate limit (3 runs/hour)
+- Global daily cap (default 20/day, per instance)
+- Developer-console UI with syntax-highlighted JSON (Prism.js CDN)
+- Railway-ready Procfile
 
-## Local Run (recommended)
-
+## Local run
 ```bash
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
 cp .env.example .env
-# edit .env with OPENAI_API_KEY and SECRET_KEY
+# set OPENAI_API_KEY, SECRET_KEY, ACCESS_PASSWORD
 
-export FLASK_APP=app       # Windows: set FLASK_APP=app
-flask run
+flask --app app run
 ```
+Open http://127.0.0.1:5000
 
-Open: http://127.0.0.1:5000
-
-## Production-like local run (Gunicorn)
-
-```bash
-gunicorn "app:create_app()" --bind 0.0.0.0:8000 --workers 2 --threads 4 --timeout 180
-```
-
-## Railway Deploy
-
-1) Push this repo to GitHub  
-2) Railway → New Project → Deploy from GitHub  
-3) Add Postgres plugin (Railway sets `DATABASE_URL`)  
-4) Set env vars in Railway:
-- `OPENAI_API_KEY`
-- `SECRET_KEY`
-- optionally `OPENAI_MODEL`
-
-Done ✅
-
-## Security note
-This MVP stores raw CV/job text in the database for convenience. For production, consider:
-- Redaction/encryption of PII
-- Short retention policy
-- User delete/export controls
+## Railway
+1) Push to GitHub
+2) Railway → New Project → Deploy from GitHub
+3) Set env vars:
+- OPENAI_API_KEY
+- OPENAI_MODEL (optional)
+- SECRET_KEY
+- ACCESS_PASSWORD
+- DAILY_CAP=20

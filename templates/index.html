@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AI Job Hunting System</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">AI Job Hunting System</div>
+    <div class="status">
+      <span class="pill">Daily cap: {{ daily_cap }}</span>
+      <span class="pill">Remaining today: {{ remaining }}</span>
+      {% if unlocked %}
+        <a class="link" href="/logout">Lock</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <div class="panel-title">
+        <span>Access Gate</span>
+        <span class="muted">Required to run</span>
+      </div>
+
+      {% if error %}
+        <div class="alert">{{ error }}</div>
+      {% endif %}
+
+      {% if not unlocked %}
+        <form method="post" action="/unlock" class="row">
+          <input name="access_key" type="password" placeholder="Enter access key" required>
+          <button type="submit">Unlock</button>
+        </form>
+      {% else %}
+        <div class="ok">Unlocked ✓</div>
+      {% endif %}
+    </section>
+
+    <section class="panel">
+      <div class="panel-title">
+        <span>Run</span>
+        <span class="muted">Match → Optimize → ATS → Re-score → Interview</span>
+      </div>
+
+      <form method="post" action="/run" class="form">
+        <label>Target role (optional)</label>
+        <input name="target_role" placeholder="e.g., Data Analyst">
+
+        <label>CV (paste plain text)</label>
+        <textarea name="cv" rows="10" required placeholder="Paste your CV here (plain text)"></textarea>
+
+        <label>Job Ad (paste plain text)</label>
+        <textarea name="job_ad" rows="10" required placeholder="Paste the job description here (plain text)"></textarea>
+
+        <div class="row">
+          <button type="submit" {% if not unlocked or remaining <= 0 %}disabled{% endif %}>
+            Run analysis
+          </button>
+          <div class="muted small">
+            Rate limit: 3 runs/hour per IP · Cap: {{ daily_cap }}/day
+          </div>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

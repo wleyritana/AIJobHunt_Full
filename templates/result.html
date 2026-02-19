@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Results · AI Job Hunting System</title>
+  <link rel="stylesheet" href="/static/styles.css">
+
+  <!-- Prism.js (CDN) for syntax highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"></script>
+
+  <script defer>
+    function copyBlock(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const text = el.innerText;
+      navigator.clipboard.writeText(text);
+      const btn = document.querySelector('[data-copy="' + id + '"]');
+      if (btn) {
+        const old = btn.innerText;
+        btn.innerText = "Copied";
+        setTimeout(() => btn.innerText = old, 900);
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">AI Job Hunting System</div>
+    <div class="status">
+      {% if role %}<span class="pill">Role: {{ role }}</span>{% endif %}
+      <span class="pill">Remaining today: {{ remaining }}</span>
+      <a class="link" href="/">New run</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <div class="panel-title">
+        <span>Output Console</span>
+        <span class="muted">Collapsible sections · Copy buttons</span>
+      </div>
+
+      <details open class="block">
+        <summary>
+          <span>Recruiter Match (Before)</span>
+          <button type="button" class="copy" data-copy="mb" onclick="copyBlock('mb')">Copy</button>
+        </summary>
+        <pre class="code"><code id="mb" class="language-json">{{ match_before_pretty }}</code></pre>
+      </details>
+
+      <details open class="block">
+        <summary>
+          <span>Optimized Experience (X–Y–Z)</span>
+          <button type="button" class="copy" data-copy="opt" onclick="copyBlock('opt')">Copy</button>
+        </summary>
+        <pre class="code"><code id="opt" class="language-markup">{{ optimized }}</code></pre>
+      </details>
+
+      <details open class="block">
+        <summary>
+          <span>ATS Audit</span>
+          <button type="button" class="copy" data-copy="atsr" onclick="copyBlock('atsr')">Copy</button>
+        </summary>
+        <pre class="code"><code id="atsr" class="language-json">{{ risks_pretty }}</code></pre>
+      </details>
+
+      <details open class="block">
+        <summary>
+          <span>ATS Submission CV</span>
+          <button type="button" class="copy" data-copy="atscv" onclick="copyBlock('atscv')">Copy</button>
+        </summary>
+        <pre class="code"><code id="atscv" class="language-markup">{{ ats_cv }}</code></pre>
+      </details>
+
+      <details open class="block">
+        <summary>
+          <span>Recruiter Match (After)</span>
+          <button type="button" class="copy" data-copy="ma" onclick="copyBlock('ma')">Copy</button>
+        </summary>
+        <pre class="code"><code id="ma" class="language-json">{{ match_after_pretty }}</code></pre>
+      </details>
+
+      <details open class="block">
+        <summary>
+          <span>Interview Pack</span>
+          <button type="button" class="copy" data-copy="ip" onclick="copyBlock('ip')">Copy</button>
+        </summary>
+        <pre class="code"><code id="ip" class="language-markup">{{ interview }}</code></pre>
+      </details>
+    </section>
+  </main>
+</body>
+</html>
