@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>New Run</h1>
+<form method="post" action="{{ url_for('flow.run_submit') }}">
+  <label>Target role (optional)</label>
+  <input name="target_role" placeholder="e.g., Data Analyst">
+
+  <label>CV (paste text)</label>
+  <textarea name="cv" rows="10" required></textarea>
+
+  <label>Job Ad (paste text)</label>
+  <textarea name="job_ad" rows="10" required></textarea>
+
+  <label>Cover Letter (optional)</label>
+  <textarea name="cover_letter" rows="6"></textarea>
+
+  <button type="submit">Run analysis</button>
+</form>
+
+<p class="muted">Tip: For best results, paste plain text (avoid tables/columns).</p>
+{% endblock %}

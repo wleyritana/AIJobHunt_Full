@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AI Job Hunting System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('flow.index') }}">Home</a>
+    <a href="{{ url_for('flow.run_form') }}">New Run</a>
+    <a href="{{ url_for('alerts.alerts') }}">Alerts</a>
+    <a href="{{ url_for('analytics.dashboard') }}">Analytics</a>
+    <span class="spacer"></span>
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+  </nav>
+
+  <main>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for m in messages %}<p>{{ m }}</p>{% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <small>AI Job Hunting System · Demo build</small>
+  </footer>
+</body>
+</html>

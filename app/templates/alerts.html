@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Job Alerts (Stub)</h1>
+<p class="muted">This stores alert preferences. A background worker can be added later to fetch jobs and notify you.</p>
+
+<div class="grid2">
+  <div class="card">
+    <h3>Create alert</h3>
+    <form method="post" action="{{ url_for('alerts.create_alert') }}">
+      <label>Keyword</label>
+      <input name="keyword" placeholder="e.g., data analyst" required>
+      <label>Location (optional)</label>
+      <input name="location" placeholder="e.g., Stockholm">
+      <button type="submit">Create</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h3>Your alerts</h3>
+    <ul class="runs">
+      {% for a in alerts %}
+        <li>
+          <div class="row">
+            <div>
+              <strong>{{ a.keyword }}</strong>
+              <span class="muted">{% if a.location %}· {{ a.location }}{% endif %}</span>
+              <div class="muted">Status: {{ "enabled" if a.is_enabled else "disabled" }}</div>
+            </div>
+            <form method="post" action="{{ url_for('alerts.toggle', alert_id=a.id) }}">
+              <button type="submit">{{ "Disable" if a.is_enabled else "Enable" }}</button>
+            </form>
+          </div>
+        </li>
+      {% else %}
+        <li class="muted">No alerts yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

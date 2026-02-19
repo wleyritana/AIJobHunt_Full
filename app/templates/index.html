@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Your Runs</h1>
+<div class="grid2">
+  <div class="card">
+    <h3>Start a new run</h3>
+    <p>Paste your CV + Job Ad, then generate:</p>
+    <ul>
+      <li>Recruiter match score + gap list</li>
+      <li>Optimized experience section (X-Y-Z)</li>
+      <li>ATS audit + ATS-ready CV</li>
+      <li>Interview pack</li>
+    </ul>
+    <a class="btn" href="{{ url_for('flow.run_form') }}">New Run</a>
+  </div>
+
+  <div class="card">
+    <h3>Recent runs</h3>
+    <ul class="runs">
+      {% for r in runs %}
+        <li>
+          <a href="{{ url_for('flow.result', run_id=r.id) }}">
+            <strong>Run #{{ r.id }}</strong> · {{ r.target_role or "No role" }}
+            <span class="muted">· {{ r.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="muted">No runs yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

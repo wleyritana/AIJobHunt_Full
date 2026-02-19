@@ -1,0 +1,33 @@
+:root { --bg:#0b0f19; --card:#121a2b; --text:#eaf0ff; --muted:#a9b4d0; --accent:#6aa6ff; --border:#233154; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; background: #0e1424; color: var(--text); }
+nav { display:flex; gap:14px; padding:14px 18px; background: var(--bg); border-bottom: 1px solid var(--border); align-items:center; position:sticky; top:0; }
+nav a { color: var(--text); text-decoration:none; }
+nav a:hover { color: var(--accent); }
+.spacer { flex:1; }
+main { padding: 18px; max-width: 1100px; margin: 0 auto; }
+footer { padding: 18px; text-align:center; color: var(--muted); }
+
+h1,h2,h3 { margin: 0 0 10px 0; }
+label { display:block; margin: 12px 0 6px 0; color: var(--muted); }
+input, textarea { width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:#0c1222; color:var(--text); }
+textarea { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+button, .btn { background: var(--accent); border:none; color:#081022; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:600; text-decoration:none; display:inline-block; }
+button:hover, .btn:hover { filter: brightness(1.05); }
+
+.flash { background:#2a1f0a; border:1px solid #5b3f11; padding:10px 12px; border-radius:10px; margin-bottom:12px; }
+.muted { color: var(--muted); }
+
+.card { background: var(--card); border:1px solid var(--border); padding:14px; border-radius:14px; }
+.cards { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.grid2 { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.section { margin-top: 18px; }
+pre { background:#0a1020; border:1px solid var(--border); padding: 12px; border-radius: 12px; overflow:auto; white-space: pre-wrap; }
+
+ul { margin: 8px 0 0 18px; }
+ul.runs { list-style: none; padding:0; margin:0; }
+ul.runs li { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+ul.runs li:last-child { border-bottom:none; }
+.row { display:flex; justify-content:space-between; gap:12px; align-items:center; }
+
+.auth { max-width: 420px; margin: 60px auto; background: var(--card); border:1px solid var(--border); padding: 18px; border-radius: 14px; }
